@@ -37,25 +37,29 @@ While assessments shows only students who have achieved a higher score in the fi
         }
 
         if (units) {
+            const extraEnglishAssignmentsCompleted = this.getExtraEnglishAssignmentsCompletedSub()
+            const extraEnglishExpressAssignmentsCompleted = this.this.getExtraEnglishExpressAssignmentsCompletedSub()
+            const oneOnOneCompleted = this.getOneOnOneCompletedSub()
+
             sql.andWhere(`
                 CASE
                     WHEN
                         (
                             (
-                                ${this.getExtraEnglishAssignmentsCompletedSub()}
+                                ${extraEnglishAssignmentsCompleted}
                             ) + (
-                                ${this.getExtraEnglishExpressAssignmentsCompletedSub()}
+                                ${extraEnglishExpressAssignmentsCompleted}
                             )
-                        ) < (${this.getOneOnOneCompletedSub()}) 
+                        ) < (${oneOnOneCompleted}) 
                     THEN 
                         (
                             (
-                                ${this.getExtraEnglishAssignmentsCompletedSub()}
+                                 ${extraEnglishAssignmentsCompleted}
                             ) + (
-                                ${this.getExtraEnglishExpressAssignmentsCompletedSub()}
+                                ${extraEnglishExpressAssignmentsCompleted}
                             )
                         )
-                    ELSE (${this.getOneOnOneCompletedSub()})
+                    ELSE (${oneOnOneCompleted})
                 END >= :units`, { units }
             )
         }
